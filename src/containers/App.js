@@ -6,11 +6,7 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import withCLass from '../hoc/withClass';
 import Aux from '../hoc/Aux';
-
-export const AuthContext = React.createContext({
-    isAuthenticated: false,
-    toggleAuth: () => {}
-});
+import AuthContext from './AuthContext';
 
 class App extends PureComponent {
     constructor(props) {
@@ -19,20 +15,31 @@ class App extends PureComponent {
         console.log("App.js inside constructor", props);
     }
 
-    componentWillMount() {
-        //console.log("App.js component will mount");
-    }
+    // componentWillMount() {
+    //     //console.log("App.js component will mount");
+    // }
 
     componentDidMount() {
         //console.log("App.js component did mount");
     }
-
-    componentWillUpdate(nextProps, nextState, nextContext) {
-        //console.log("UPDATE App.js component will update", nextProps, nextState);
-    }
+    //
+    // componentWillUpdate(nextProps, nextState, nextContext) {
+    //     //console.log("UPDATE App.js component will update", nextProps, nextState);
+    // }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         //console.log("UPDATE App.js component did update", this.props);
+    }
+
+    // noinspection JSUnusedLocalSymbols
+    static getDerivedStateFromProps(nextProps, prevState) {
+        //console.log("App.js get derived state from props");
+        return null;
+    }
+
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+        //console.log("App.js get snapshot before update");
+        return null;
     }
 
     state = {
@@ -62,6 +69,7 @@ class App extends PureComponent {
     };
 
     togglePersonsHandler = () => {
+        // noinspection JSUnusedLocalSymbols
         this.setState((prevState, props) => {
             return {
                 showPersons: !this.state.showPersons,
@@ -71,11 +79,12 @@ class App extends PureComponent {
     };
 
     loginHandler = () => {
+        // noinspection JSUnusedLocalSymbols
         this.setState((prevState, props) => { return {authenticated: !prevState.authenticated}});
-    }
+    };
 
     render() {
-        console.log("App.js inside render");
+        //console.log("App.js inside render");
 
         let persons = null;
 

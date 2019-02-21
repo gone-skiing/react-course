@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Aux from '../../hoc/Aux';
 
 import classes from "./Cockpit.css";
 
-import { AuthContext } from '../../containers/App';
+import AuthContext from '../../containers/AuthContext';
+
+class Login extends Component {
+    static contextType = AuthContext;
+
+    render() {
+        return (
+            <button onClick={this.context.toggleAuth}>
+                {this.context.isAuthenticated ? 'Log Out' : 'Log In'}
+            </button>
+        );
+    }
+}
 
 const cockpit = (props) => {
 
@@ -31,17 +43,9 @@ const cockpit = (props) => {
                 className={buttonClass}
                 onClick={props.clicked}>Toggle Names</button>
 
-            <AuthContext.Consumer>
-                {authContext => {
-                    return (
-                        <button onClick={authContext.toggleAuth}>
-                            {authContext.isAuthenticated ? 'Log Out' : 'Log In'}
-                        </button>
-                    );
-                }}
-            </AuthContext.Consumer>
+            <Login/>
         </Aux>
     );
 };
 
-export default cockpit;
+export default React.memo(cockpit);

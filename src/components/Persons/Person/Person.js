@@ -6,9 +6,11 @@ import Aux from '../../../hoc/Aux'
 
 import classes from './Person.css';
 
-import { AuthContext } from '../../../containers/App';
+import AuthContext from '../../../containers/AuthContext';
 
 class Person extends Component {
+    static contextType = AuthContext;
+
     constructor(props) {
         super(props);
         //console.log("Person.js inside constructor", props);
@@ -32,9 +34,7 @@ class Person extends Component {
 
         return (
             <Aux>
-                <AuthContext.Consumer>
-                    {authContext => authContext.isAuthenticated ? <p>I am authenticated</p> : null}
-                </AuthContext.Consumer>
+                {this.context.isAuthenticated ? <p>I am authenticated</p> : null}
                 <p onClick={this.props.click}>I am {this.props.name} and I am {this.props.age} years old.</p>
                 <p>{this.props.children}</p>
                 <input
