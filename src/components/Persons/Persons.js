@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import Person from './Person/Person';
 
-class Persons extends Component {
+class Persons extends PureComponent {
     constructor(props) {
         super(props);
         console.log("Persons.js inside constructor", props);
