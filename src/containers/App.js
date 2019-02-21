@@ -6,6 +6,34 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        // this.state... can be used to initialize state here. Still used in older versions.
+        console.log("App.js inside constructor", props);
+    }
+
+    componentWillMount() {
+        console.log("App.js component will mount");
+    }
+
+    componentDidMount() {
+        console.log("App.js component did mount");
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log("UPDATE App.js should component update", nextProps, nextState);
+        return nextState.persons !== this.state.persons ||
+            nextState.showPersons !== this.state.showPersons;
+    }
+
+    componentWillUpdate(nextProps, nextState, nextContext) {
+        console.log("UPDATE App.js component will update", nextProps, nextState);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("UPDATE App.js component did update", this.props);
+    }
+
     state = {
         persons: [
             {id: '1', name: 'Max', age: 28},
@@ -35,6 +63,8 @@ class App extends Component {
     };
 
     render() {
+        console.log("App.js inside render");
+
         let persons = null;
 
         if (this.state.showPersons) {
@@ -47,6 +77,7 @@ class App extends Component {
 
         return (
             <div className={classes.App}>
+                <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
                 <Cockpit
                     appTitle={this.props.title}
                     showPersons={this.state.showPersons}
