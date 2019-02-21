@@ -43,6 +43,7 @@ class Persons extends PureComponent {
             return (
                 <ErrorBoundary key={p.id}>
                     <Person
+                        index={index}
                         click={() => this.props.clicked(index)}
                         changed={(event) => this.props.changed(event, p.id)}
                         name={p.name}
