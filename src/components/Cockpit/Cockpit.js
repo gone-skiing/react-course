@@ -3,6 +3,8 @@ import Aux from '../../hoc/Aux';
 
 import classes from "./Cockpit.css";
 
+import { AuthContext } from '../../containers/App';
+
 const cockpit = (props) => {
 
     const assignedClasses = [];
@@ -28,6 +30,16 @@ const cockpit = (props) => {
             <button
                 className={buttonClass}
                 onClick={props.clicked}>Toggle Names</button>
+
+            <AuthContext.Consumer>
+                {authContext => {
+                    return (
+                        <button onClick={authContext.toggleAuth}>
+                            {authContext.isAuthenticated ? 'Log Out' : 'Log In'}
+                        </button>
+                    );
+                }}
+            </AuthContext.Consumer>
         </Aux>
     );
 };

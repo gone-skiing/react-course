@@ -7,6 +7,11 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import withCLass from '../hoc/withClass';
 import Aux from '../hoc/Aux';
 
+export const AuthContext = React.createContext({
+    isAuthenticated: false,
+    toggleAuth: () => {}
+});
+
 class App extends PureComponent {
     constructor(props) {
         super(props);
@@ -15,19 +20,19 @@ class App extends PureComponent {
     }
 
     componentWillMount() {
-        console.log("App.js component will mount");
+        //console.log("App.js component will mount");
     }
 
     componentDidMount() {
-        console.log("App.js component did mount");
+        //console.log("App.js component did mount");
     }
 
     componentWillUpdate(nextProps, nextState, nextContext) {
-        console.log("UPDATE App.js component will update", nextProps, nextState);
+        //console.log("UPDATE App.js component will update", nextProps, nextState);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("UPDATE App.js component did update", this.props);
+        //console.log("UPDATE App.js component did update", this.props);
     }
 
     state = {
@@ -37,7 +42,8 @@ class App extends PureComponent {
             {id: '3', name: "Pete", age: 30}
         ],
         showPersons: false,
-        toggleClickedCounter: 0
+        toggleClickedCounter: 0,
+        authenticated: false
     };
 
     deletePersonHandler = (index) => {
@@ -64,6 +70,10 @@ class App extends PureComponent {
         });
     };
 
+    loginHandler = () => {
+        this.setState((prevState, props) => { return {authenticated: !prevState.authenticated}});
+    }
+
     render() {
         console.log("App.js inside render");
 
@@ -80,14 +90,19 @@ class App extends PureComponent {
         return (
             <Aux>
                 <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
-                <Cockpit
-                    appTitle={this.props.title}
-                    showPersons={this.state.showPersons}
-                    persons={this.state.persons}
-                    clicked={this.togglePersonsHandler}
-                />
 
-                {persons}
+                <AuthContext.Provider
+                    value={{isAuthenticated: this.state.authenticated, toggleAuth: this.loginHandler}}>
+
+                    <Cockpit
+                        appTitle={this.props.title}
+                        showPersons={this.state.showPersons}
+                        persons={this.state.persons}
+                        clicked={this.togglePersonsHandler}
+                    />
+
+                    {persons}
+                </AuthContext.Provider>
             </Aux>
         );
     }

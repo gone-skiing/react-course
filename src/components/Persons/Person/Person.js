@@ -6,32 +6,39 @@ import Aux from '../../../hoc/Aux'
 
 import classes from './Person.css';
 
+import { AuthContext } from '../../../containers/App';
+
 class Person extends Component {
     constructor(props) {
         super(props);
-        console.log("Person.js inside constructor", props);
+        //console.log("Person.js inside constructor", props);
+        this.inputElement = React.createRef();
     }
 
     componentWillMount() {
-        console.log("Person.js component will mount");
+        //console.log("Person.js component will mount");
     }
 
     componentDidMount() {
-        console.log("Person.js component did mount");
-        if (this.props.index === 0) {
-            this.inputElement.focus();
-        }
+        //console.log("Person.js component did mount");
+    }
+
+    focus() {
+        this.inputElement.current.focus();
     }
 
     render() {
-        console.log("Person.js inside render");
+        //console.log("Person.js inside render");
 
         return (
             <Aux>
+                <AuthContext.Consumer>
+                    {authContext => authContext.isAuthenticated ? <p>I am authenticated</p> : null}
+                </AuthContext.Consumer>
                 <p onClick={this.props.click}>I am {this.props.name} and I am {this.props.age} years old.</p>
                 <p>{this.props.children}</p>
                 <input
-                    ref={(inp) => {this.inputElement = inp;}}
+                    ref={this.inputElement}
                     type={"text"}
                     onChange={this.props.changed}
                     value={this.props.name}/>
