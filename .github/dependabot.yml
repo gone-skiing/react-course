@@ -1,0 +1,55 @@
+version: 2
+registries:
+  npm-registry-npm-pkg-github-com:
+    type: npm-registry
+    url: https://npm.pkg.github.com
+    token: "${{secrets.NPM_REGISTRY_NPM_PKG_GITHUB_COM_TOKEN}}"
+
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "07:00"
+    timezone: America/New_York
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@babel/core"
+    versions:
+    - 7.12.10
+    - 7.12.13
+    - 7.12.16
+    - 7.12.17
+    - 7.13.0
+    - 7.13.1
+    - 7.13.10
+    - 7.13.13
+    - 7.13.14
+    - 7.13.15
+    - 7.13.16
+    - 7.13.8
+  - dependency-name: y18n
+    versions:
+    - 4.0.1
+    - 4.0.2
+  - dependency-name: workbox-webpack-plugin
+    versions:
+    - 6.1.0
+    - 6.1.1
+    - 6.1.2
+  - dependency-name: react-dev-utils
+    versions:
+    - 11.0.1
+    - 11.0.2
+    - 11.0.3
+  - dependency-name: html-webpack-plugin
+    versions:
+    - 4.5.1
+  - dependency-name: lodash
+    versions:
+    - 4.17.20
+  - dependency-name: elliptic
+    versions:
+    - 6.5.3
+  registries:
+  - npm-registry-npm-pkg-github-com
